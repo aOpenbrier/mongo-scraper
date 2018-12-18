@@ -1,5 +1,6 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
+const Article = require('../models/article')
 
 module.exports = (app) => {
 
@@ -24,13 +25,27 @@ module.exports = (app) => {
 
     //see saved articles
     app.get('/savedarticles', (req, res) => {
-
+        Article.find()
+        .then(r => res.json(r))
     })
 
     //add to saved articles
-    app.post('savedarticles', (req, res) => {
-        //   TODO:
-        //   -save to mongo database
+    app.post('/savedarticles', (req, res) => {
+        // testingggggg
+        console.log(req.body)
+        res.sendStatus(200)
+        Article.find({
+            headline: req.body.headline
+        })
+        .then(r => {
+
+            if (r[0]) {
+                console.log(`${r.headline} already in database`)
+            } else {
+                Article.create(req.body)
+                console.log(`Added ${r.headline}`)
+            }
+        })
     })
 
     //delete one article
