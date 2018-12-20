@@ -15,7 +15,8 @@ module.exports = (app) => {
                         headline: $(elem).find('h2').text(),
                         summary: $(elem).find('p.css-1gh531').text(),
                         url: `https://newyorktimes.com${$(elem).find('a').attr('href')}`,
-                        date: $(elem).find('a').attr('href').split('/').splice(1, 3).join('-')
+                        date: $(elem).find('a').attr('href').split('/').splice(1, 3).join('-'),
+                        notes: ''
                     }
                     articleArr.push(articleObject)
                 })
@@ -31,8 +32,6 @@ module.exports = (app) => {
 
     //add to saved articles
     app.post('/savedarticles', (req, res) => {
-        // testingggggg
-        console.log(req.body)
         res.sendStatus(200)
         Article.find({
             headline: req.body.headline
@@ -49,17 +48,37 @@ module.exports = (app) => {
     })
 
     //delete one article
-    app.delete('/savedarticles-:id', (req, res) => {
-
+    app.delete('/savedarticles/:id', (req, res) => {
+        res.sendStatus(200)
+        Article.deleteOne({
+            _id : req.params.id
+        })
+        .then(r => console.log(r))
+        .catch(e => console.log(e))
     })
 
     //delete all articles
     app.delete('/savedarticles', (req, res) => {
-
+        res.sendStatus(200)
+        Article.deleteMany({})
+        .then(r => console.log(r))
+        .catch(e => console.log(e))
     })
 
     //update notes
-    app.put('/notes-:id', (req, res) => {
-
+    app.put('/savedarticles/:id', (req, res) => {
+        console.log(req.body)
+        console.log(req.body.notes)
+        res.sendStatus(200)
+        Article.updateOne({
+            _id: req.params.id
+        },
+        {
+            $set: {
+                notes: req.body.notes
+            }
+        })
+        .then(r => console.log(r))
+        .catch(e => console.log(e))
     })
 }
