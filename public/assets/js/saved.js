@@ -6,11 +6,11 @@ fetch('/savedarticles')
             const articleCard = document.createElement('div')
             articleCard.className = 'row mb-3'
             articleCard.id = `card${index}`
-            articleCard.innerHTML = `<div class='card'><div class="card-body">
-                <button class="float-right btn btn-danger" data-id='${article._id}' onclick='deleteArticle(this)'>Delete</button>
+            articleCard.innerHTML = `<div class='card w-100'><div class="card-body">
+                <button class="float-right btn btn-danger" data-id='${article._id}' data-cardIndex='${index}' onclick='deleteArticle(this)'>Delete</button>
                 <h5 class="card-title"><a href='${article.url}'>${article.headline}</a></h5>
                 <p class="card-text">${article.summary}</p>
-                <p class='cart-text text-muted small'>${article.date}</p>
+                <p class='cart-text text-muted small'>${article.date.split('T')[0]}</p>
             </div>
             <div class="card-footer py-1">
                 <form>
@@ -34,13 +34,12 @@ function deleteArticle(elem){
     fetch(`savedArticles/${elem.getAttribute('data-id')}`, {
         method: 'DELETE'
     })
-    .then(r => console.log(r))
+    .then(r => {
+        // Remove element from DOM
+        document.getElementById(`card${elem.getAttribute('data-cardIndex')}`).remove()
+        console.log(r)
+    })
     .catch(e => console.error(e))
-
-    // Remove element from DOM
-    // TODO
-
-    }
 
 function editNotes(elem){
     event.preventDefault()
@@ -70,6 +69,7 @@ function saveNotes(elem){
 
     // disable save button
     document.getElementById(`saveBtn${cardIndex}`).setAttribute('disabled', true)
+   
     // disable form
     document.getElementById(`notesinput${cardIndex}`).setAttribute('disabled', true)
     // renable edit button
