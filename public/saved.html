@@ -22,15 +22,17 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id='mynavbar'></div>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="./index.html" class="nav-link">Latest Articles</a>
-            </li>
-            <li class="nav-item active">
-                <a href="./saved.html" class="nav-link">Saved Articles</a>
-            </li>
-        </ul>
+        <div class="collapse navbar-collapse" id='mynavbar'>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="./index.html" class="nav-link">Latest Articles</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="./saved.html" class="nav-link">Saved Articles</a>
+                </li>
+            </ul>
+        </div>
+        <button class="btn btn-danger" onclick='deleteAllSaved()'>Delete All</button>
     </nav>
     <div class="container pt-2" id='savednews'>
     </div>
