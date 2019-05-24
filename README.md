@@ -6,18 +6,31 @@ Mongo Scraper pulls current articles New York Times Technology section. User can
 ## Deployment
 Deployed to [Heroku](https://mdb-scraper.herokuapp.com/)
 
+## Usage 
+#### New Articles Page
+- Browse latest articles. 
+- Click "Save" button to add to Saved Articles List.  
+- Saved articles will be indicated with green "Saved" button  
+
+![Latest Articles Page](./readme/latest.jpg)  
+
+#### Saved Articles Page
+- Delete All - Delete all saved articles
+- Delete - Delete containing article
+- Edit - Edit notes for containing article
+- Save - Save notes after editing  
+
+![Saved Articles Page](./readme/saved.jpg)
+
 ## Development setup
-Project uses node server environment. If you haven't already, install [Node.js](https://nodejs.org/en/download/)
-
-Install dependencies:
-```bash
-npm i
-```
-
-Test on local host:
-```bash
-node server.js
-```
+Project uses node server environment. If you haven't already, install [Node.js](https://nodejs.org/en/download/)  
+  
+**Install dependencies:**  
+At command line in project directory run: `npm i`  
+  
+**Test on local server:**  
+At command line in project directory run: `node server.js`  
+Open browser and navigate to `localhost:3000`
 
 ## Technologies Used
 - [MongoDB](https://www.mongodb.com/) - Open-source NoSQL database
