@@ -20,7 +20,6 @@ getArticles()
             let isSaved = false
             saved.forEach(savedArticle => {
                 if (article.url === savedArticle.url){
-                    console.log(article.url + ' ' + savedArticle.url)
                     isSaved = true
                 }
             })
