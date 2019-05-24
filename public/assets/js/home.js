@@ -1,13 +1,33 @@
+function getLatest(){
+    return fetch('/newarticles')
+        .then(r => r.json())
+}
 
-fetch('/newarticles')
-    .then(r => r.json())
-    .then(r => {
+function getSaved(){
+    return fetch('/savedarticles')
+        .then(r => r.json())
+}
+
+function getArticles() {
+    return Promise.all([getLatest(), getSaved()])
+}
+
+getArticles()
+    .then(([latest, saved]) => {
         document.getElementById('scrapednews').innerHTML = ''
-        r.forEach((article, index) => {
+        latest.forEach((article, index) => {
+            //check if article was previously saved
+            let isSaved = false
+            saved.forEach(savedArticle => {
+                if (article.url === savedArticle.url){
+                    console.log(article.url + ' ' + savedArticle.url)
+                    isSaved = true
+                }
+            })
             const articleCard = document.createElement('div')
             articleCard.className = 'row mb-2'
             articleCard.innerHTML = `<div class='card w-100'><div class="card-body">
-            <button class="btn btn-primary float-right" data-object='${JSON.stringify(article)}' onclick='saveArticle(this)'>Save</button>
+            <button class="btn ${isSaved ? 'btn-success' : 'btn-primary'} float-right" data-object='${JSON.stringify(article)}' onclick='saveArticle(this)'>Save${isSaved ?'d':''}</button>
             <h5 class="card-title"><a href='${article.url}'>${article.headline}</a></h5>
             <p class="card-text">${article.summary}</p>
             <p class='cart-text text-muted small'>${article.date}</p>
@@ -35,5 +55,4 @@ function saveArticle(elem) {
             elem.classList.add('btn-success')
         })
         .catch(e => { console.error(e) })
-
 }
