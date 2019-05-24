@@ -28,7 +28,12 @@ function saveArticle(elem) {
         },
         body: elem.getAttribute('data-object')
     })
-        .then(r => { console.log(r) })
+        .then(r => { 
+            console.log(r)
+            elem.innerText = 'Saved'
+            elem.classList.remove('btn-primary')
+            elem.classList.add('btn-success')
+        })
         .catch(e => { console.error(e) })
 
 }
